@@ -38,6 +38,8 @@ jobs:
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r25b
+        
+      - name: start ndk build
         run: ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk
    
       - name: Run a one-line script

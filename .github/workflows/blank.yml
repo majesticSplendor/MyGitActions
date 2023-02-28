@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: BUILD & RELEASE
 
 # Controls when the workflow will run
 on:
@@ -24,14 +24,20 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Setup JDK
+        uses: actions/setup-java@v2.5.0
+        with:
+          distribution: temurin
+          java-version: "11"
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
 
-      # Runs a single command using the runners shell
+      - uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r25b
+      - runs: ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk
+   
       - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-          sudo apt install zig
+        run: echo Success!

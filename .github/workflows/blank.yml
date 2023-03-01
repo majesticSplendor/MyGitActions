@@ -28,8 +28,9 @@ jobs:
       - name: clone repo
         run: git clone https://github.com/raysan5/raylib.git
 
-      - run: cd raylib/src
-      - run: make
+      - run: |
+             cd raylib/src
+             make
 
       - name: Upload APK
         uses: actions/upload-artifact@v1
